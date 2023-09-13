@@ -1,13 +1,15 @@
 package com.picpayApi.Model;
 
+import java.util.List;
 import java.util.UUID;
 import jakarta.persistence.Column;
-import jakarta.validation.constraints.Email;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,7 +18,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "user")
+@Table(name = "usuario")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,7 +39,12 @@ public class User {
 
     @Column(nullable = false)
     private boolean varejista;
-
+    
     @Column(nullable = false)
     private double saldo;
+    @OneToMany(mappedBy = "usuario")
+    private List<Transacao> transacoes;
+ 
 }
+
+
