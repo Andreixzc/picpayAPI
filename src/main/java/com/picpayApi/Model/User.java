@@ -13,11 +13,13 @@ import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 @Table(name = "usuario")
 public class User {
     @Id
@@ -25,7 +27,7 @@ public class User {
     private UUID id;
 
     @Column(nullable = false)
-    private String NomeCompleto;
+    private String nome;
 
     @Column(nullable = false, unique = true)
     @Email

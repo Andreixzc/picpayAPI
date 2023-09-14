@@ -19,6 +19,8 @@ public class UserController {
 
     @PostMapping()
     public ResponseEntity<?> cadastrarUsuario(@RequestBody @Valid  User user){
+        System.out.println("PRITNANDO DADOS:: @@@@@@@@@@@@@@@");
+        System.out.println(user.toString());
         return ResponseEntity.ok(userService.create(user));
     }
 }
