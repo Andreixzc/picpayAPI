@@ -30,12 +30,19 @@ public class Transacao {
     @Column(nullable = false)
     private double valor;
 
+    // @ManyToOne
+    // @JoinColumn(name = "sender_id", nullable = false)
+    // private User sender;
+
+    // @ManyToOne
+    // @JoinColumn(name = "receiver_id", nullable = false)
+    // private User receiver;
     @ManyToOne
-    @JoinColumn(name = "sender_id", nullable = false)
+    @JoinColumn(name = "sender_id", referencedColumnName = "id", nullable = false)
     private User sender;
 
     @ManyToOne
-    @JoinColumn(name = "receiver_id", nullable = false)
+    @JoinColumn(name = "receiver_id", referencedColumnName = "id", nullable = false)
     private User receiver;
 }
     
