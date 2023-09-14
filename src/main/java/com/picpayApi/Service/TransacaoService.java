@@ -18,7 +18,7 @@ public class TransacaoService {
 
 
     public boolean validaTransacao(Transacao transacao) {
-        Optional<User> sender = userRepository.findById(transacao.getSenderID());
+        Optional<User> sender = userRepository.findById(transacao.getSender().getId());
         if (sender.get().isVarejista() || sender.get().getSaldo() < transacao.getValor()) {
             return false;
         }
@@ -28,8 +28,9 @@ public class TransacaoService {
     }
 
     public Transacao realizaTransacao(Transacao transacao) {
-        Optional<User> sender = userRepository.findById(transacao.getSenderID());
-        Optional<User> receiver = userRepository.findById(transacao.getRecivierID());
+
+        Optional<User> sender = userRepository.findById(transacao.getSender().getId());
+        Optional<User> receiver = userRepository.findById(transacao.getReceiver().getId());
         sender.get().setSaldo(sender.get().getSaldo() - transacao.getValor());
         receiver.get().setSaldo(receiver.get().getSaldo() + transacao.getValor());
         userRepository.save(sender.get());

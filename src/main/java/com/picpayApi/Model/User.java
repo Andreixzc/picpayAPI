@@ -24,7 +24,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(nullable = false, unique = false)
+    @Column(nullable = false)
     private String NomeCompleto;
 
     @Column(nullable = false, unique = true)
@@ -39,12 +39,15 @@ public class User {
 
     @Column(nullable = false)
     private boolean varejista;
-    
+
     @Column(nullable = false)
     private double saldo;
-    @OneToMany(mappedBy = "usuario")
-    private List<Transacao> transacoes;
- 
+
+    @OneToMany(mappedBy = "sender")
+    private List<Transacao> transacoesEnviadas;
+
+    @OneToMany(mappedBy = "receiver")
+    private List<Transacao> transacoesRecebidas;
 }
 
 
