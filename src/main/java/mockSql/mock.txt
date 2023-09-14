@@ -1,0 +1,47 @@
+{
+  "nome": "xde ",
+  "email": "usuario12@email.com",
+  "cpf": "123267801",
+  "cnpj": "1234567200190",
+  "varejista": false,
+  "saldo": 1000.00
+}
+//////////////
+{
+  "nome": "xd ",
+  "email": "usuario1@email.com",
+  "cpf": "1232678201",
+  "cnpj": "12345672300190",
+  "varejista": false,
+  "saldo": 1000.00
+}
+
+****************
+{
+  "valor": 50.0,
+  "sender": {
+    "id": "00bda714-fc2d-443c-947b-bbb1972c44b1",
+    "nome": "xd",
+    "email": "usuario2@email.com",
+    "cpf": "1234567801",
+    "cnpj": "1234567800190",
+    "varejista": false,
+    "saldo": 1000.0,
+    "transacoesEnviadas": null,
+    "transacoesRecebidas": null
+  },
+  "receiver": {
+    "id": "df5128c8-8db2-424a-8fb8-8ae2fac33b5e",
+    "nome": "Nome do Usuário",
+    "email": "usuario@email.com",
+    "cpf": "12345678901",
+    "cnpj": "12345678000190",
+    "varejista": true,
+    "saldo": 1000.0,
+    "transacoesEnviadas": null,
+    "transacoesRecebidas": null
+  }
+}
+
+
+

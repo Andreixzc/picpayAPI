@@ -18,6 +18,9 @@ public class TransacaoService {
 
 
     public boolean validaTransacao(Transacao transacao) {
+
+        System.out.println(transacao.getSender().toString());
+        System.out.println(transacao.getReceiver().toString());
         Optional<User> sender = userRepository.findById(transacao.getSender().getId());
         if (sender.get().isVarejista() || sender.get().getSaldo() < transacao.getValor()) {
             return false;
