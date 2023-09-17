@@ -17,7 +17,6 @@
   "varejista": false,
   "saldo": 1000.00
 }
-
 {
   "nome": "xde ",
   "email": "usuario12@email.com",

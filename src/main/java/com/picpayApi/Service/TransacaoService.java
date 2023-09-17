@@ -1,8 +1,12 @@
 package com.picpayApi.Service;
 
 import java.util.Optional;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.picpayApi.Dtos.TransacaoDto;
 import com.picpayApi.Model.Transacao;
 import com.picpayApi.Model.User;
 import com.picpayApi.Repository.TransacaoRepository;
@@ -16,29 +20,39 @@ public class TransacaoService {
     @Autowired
     private UserRepository userRepository;
 
-
     public boolean validaTransacao(Transacao transacao) {
-
-        System.out.println(transacao.getSender().toString());
-        System.out.println(transacao.getReceiver().toString());
         Optional<User> sender = userRepository.findById(transacao.getSender().getId());
-        if (sender.get().isVarejista() || sender.get().getSaldo() < transacao.getValor()) {
+        Optional<User> receiver = userRepository.findById(transacao.getReceiver().getId());
+
+        if (sender.isEmpty() || receiver.isEmpty() ||
+                sender.get().isVarejista() || sender.get().getSaldo() < transacao.getValor()) {
             return false;
         }
-        // validador externo
 
         return true;
     }
 
-    public Transacao realizaTransacao(Transacao transacao) {
-
+    public TransacaoDto realizaTransacao(Transacao transacao) throws Exception {
+        TransacaoDto transacaoDto = new TransacaoDto();
         Optional<User> sender = userRepository.findById(transacao.getSender().getId());
         Optional<User> receiver = userRepository.findById(transacao.getReceiver().getId());
-        sender.get().setSaldo(sender.get().getSaldo() - transacao.getValor());
-        receiver.get().setSaldo(receiver.get().getSaldo() + transacao.getValor());
+
+        if (!sender.isPresent() || !receiver.isPresent()) {
+            throw new Exception("Usuário remetente ou destinatário não encontrado");
+        }
+
+        double valor = transacao.getValor();
+        sender.get().setSaldo(sender.get().getSaldo() - valor);
+        receiver.get().setSaldo(receiver.get().getSaldo() + valor);
+
         userRepository.save(sender.get());
         userRepository.save(receiver.get());
         transacaoRepository.save(transacao);
-        return transacao;
+
+        BeanUtils.copyProperties(transacao, transacaoDto);
+        transacaoDto.setReceiverId(transacao.getReceiver().getId());
+        transacaoDto.setSenderId(transacao.getSender().getId());
+
+        return transacaoDto;
     }
 }
